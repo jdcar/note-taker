@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 
 const path = require('path')
 
-const db = require('db.json')
+// const db = require('db\\db.json')
 
 // Copy/Paste this into all projects
 app.use(express.urlencoded({ extended: true }))
@@ -19,7 +19,9 @@ app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/notes.html'))
   console.log(path.join(__dirname + '/public/notes.html'))
 })
-// GET * - Should return the index.html file
+
+//C:\Users\jcs8769\Desktop\bootcamp\homework\note-taker\public\notes.html
+// GET * - Should return the index.html 
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/index.html'))
