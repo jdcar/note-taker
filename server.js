@@ -7,6 +7,7 @@ const path = require('path')
 const db = require('./db/db.json')
 
 
+
 // Copy/Paste this into all projects
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -14,6 +15,8 @@ app.use(express.json())
 
 // Set up
 // GET /notes - Should return the notes.html file.
+
+
 
 app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/notes.html'))
@@ -37,7 +40,16 @@ app.get('/', (req, res) => {
 
 app.get('/api/notes', (req, res) => {
   // Should read the db.json file and return all saved notes as JSON.
+
+  
   res.json(db) 
+
+})
+
+
+app.get('/api/notes/:id', (req, res) => {
+  console.log(req.params)
+  res.end()
 
 })
 
@@ -48,6 +60,8 @@ app.post('/api/notes', (req, res) => {
   res.status(200).send()
 
 })
+
+
 
 app.delete('/api/notes/:id', (req, res) => {
 
