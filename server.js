@@ -11,6 +11,7 @@ const db = require('./db/db.json')
 // Copy/Paste this into all projects
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(express.static('public'))
 
 
 // Set up
@@ -40,7 +41,6 @@ app.get('/', (req, res) => {
 
 app.get('/api/notes', (req, res) => {
   // Should read the db.json file and return all saved notes as JSON.
-
   
   res.json(db) 
 
