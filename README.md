@@ -22,4 +22,4 @@ ISC. Copyright (c) 2021 Jamie Carlstone
 * https://github.com/jdcar
 ## Screenshots
 * ![Notes page](/img/screenshot-1.JPG "Notes Page")
-* ![Homepage](/img/screenshot-1.JPG "Home Page")
+* ![Homepage](/img/screenshot-2.JPG "Home Page")
