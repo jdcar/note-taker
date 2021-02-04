@@ -1,6 +1,8 @@
 // Express
 const express = require('express');
 const fs = require('fs')
+// const connectLivereload = require("connect-livereload");
+
 const app = express()
 const PORT = process.env.PORT || 3000;
 const path = require('path')
@@ -93,8 +95,12 @@ app.delete('/api/notes/:id', (req, res) => {
       if (err) throw err;
       console.log('Saved!');
       res.json(JSON.stringify(notes))
+
+      app.use(connectLivereload());
+
       // console.log(notes)
     });
+    
   })
 })
 
