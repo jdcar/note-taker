@@ -7,6 +7,19 @@ const app = express()
 const PORT = process.env.PORT || 3000;
 const path = require('path')
 const db = require('./db/db.json')
+const livereload = require("livereload");
+
+const liveReloadServer = livereload.createServer();
+liveReloadServer.watch(path.join(__dirname, 'public'));
+
+
+// in app.js (or similar)
+liveReloadServer.server.once("connection", () => {
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 100);
+});
+
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -30,7 +43,7 @@ app.get('/api/notes', (req, res) => {
 
 app.get('/api/notes/:id', (req, res) => {
   console.log(req.params)
-  // res.end()
+  res.json(db)
 })
 
 app.post('/api/notes', (req, res) => {
