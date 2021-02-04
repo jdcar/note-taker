@@ -42,6 +42,7 @@ app.get('/', (req, res) => {
 app.get('/api/notes', (req, res) => {
   // Should read the db.json file and return all saved notes as JSON.
   
+
   res.json(db) 
 
 })
@@ -55,8 +56,13 @@ app.get('/api/notes/:id', (req, res) => {
 
 app.post('/api/notes', (req, res) => {
 
-
+  
+  const newNote = req.body
+  newNote.id = Math.floor(Math.random() * 1000000000);
+  db.push(newNote)
+  console.log(db)
   // Should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client.
+
   res.status(200).send()
 
 })
