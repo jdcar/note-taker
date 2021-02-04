@@ -76,6 +76,8 @@ app.post('/api/notes', (req, res) => {
 
 app.delete('/api/notes/:id', (req, res) => {
 
+  let chosenNote = req.params.id
+
   fs.readFile('./db/db.json', 'utf8', (err, db) => {
     if (err) {
       throw err
@@ -83,7 +85,7 @@ app.delete('/api/notes/:id', (req, res) => {
     let notes = JSON.parse(db)
 
     let index = notes.find((note) => { 
-      return req.params.id == note.id })
+      return chosenNote == note.id })
     notes.splice(index, 1)
 
     fs.writeFile('./db/db.json', JSON.stringify(notes), function (err) {
