@@ -30,7 +30,7 @@ app.get('/api/notes', (req, res) => {
 
 app.get('/api/notes/:id', (req, res) => {
   console.log(req.params)
-  res.end()
+  // res.end()
 })
 
 app.post('/api/notes', (req, res) => {
