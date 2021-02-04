@@ -1,17 +1,15 @@
 // Express
 const express = require('express');
 const fs = require('fs')
-// const connectLivereload = require("connect-livereload");
-
 const app = express()
 const PORT = process.env.PORT || 3000;
 const path = require('path')
 const db = require('./db/db.json')
-const livereload = require("livereload");
 
+// const connectLivereload = require("connect-livereload");
+const livereload = require("livereload");
 const liveReloadServer = livereload.createServer();
 liveReloadServer.watch(path.join(__dirname, 'public'));
-
 
 // in app.js (or similar)
 liveReloadServer.server.once("connection", () => {
@@ -37,6 +35,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/notes', (req, res) => {
+  
   res.json(db)
 
 })
