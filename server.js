@@ -43,6 +43,7 @@ app.get('/api/notes', (req, res) => {
 
 app.get('/api/notes/:id', (req, res) => {
   console.log(req.params)
+  app.use(connectLivereload());
   res.json(db)
 })
 
