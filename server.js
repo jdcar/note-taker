@@ -74,16 +74,26 @@ app.post('/api/notes', (req, res) => {
 
 
 
+app.delete('/api/notes/:id', (req, res) => {
 
+  fs.readFile('./db/db.json', 'utf8', (err, db) => {
+    if (err) {
+      throw err
+    }
+    let notes = JSON.parse(db)
 
+    let index = notes.find((note) => { 
+      return req.params.id == note.id })
+    notes.splice(index, 1)
 
-
-
-
-
-
-
-
+    fs.writeFile('./db/db.json', JSON.stringify(notes), function (err) {
+      if (err) throw err;
+      console.log('Saved!');
+      res.json(JSON.stringify(notes))
+      // console.log(notes)
+    });
+  })
+})
 
 
 app.listen(PORT, function () {
