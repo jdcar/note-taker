@@ -6,22 +6,15 @@ const PORT = process.env.PORT || 3000;
 const path = require('path')
 const db = require('./db/db.json')
 
-// const connectLivereload = require("connect-livereload");
-const livereload = require("livereload");
-const liveReloadServer = livereload.createServer();
-liveReloadServer.watch(path.join(__dirname, 'public'));
-
-// in app.js (or similar)
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-    liveReloadServer.refresh("/");
-  }, 100);
-});
 
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static('public'))
+app.use((req, res, next) => {
+  console.log(req.url, req.method, res.statusCode)
+  next()
+})
 
 app.get('/notes', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/notes.html'))
@@ -35,15 +28,25 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/notes', (req, res) => {
-  
-  res.json(db)
+  fs.readFile('./db/db.json', 'utf8', (err, notes) => {
+    if (err) throw err
+    let notesRead = JSON.parse(notes)
 
+    res.json(notesRead)
+  })
 })
 
 app.get('/api/notes/:id', (req, res) => {
   console.log(req.params)
-  app.use(connectLivereload());
-  res.json(db)
+  // app.use(connectLivereload());
+  fs.readFile('./db/db.json', 'utf8', (err, notes) => {
+    if (err) throw err
+    let notesRead = JSON.parse(notes)
+
+    res.json(notesRead)
+  })
+
+  // res.json(db)
 })
 
 app.post('/api/notes', (req, res) => {
@@ -62,12 +65,12 @@ app.delete('/api/notes/:id', (req, res) => {
   let chosenNote = req.params.id
 
   fs.readFile('./db/db.json', 'utf8', (err, db) => {
-    if (err) throw err 
+    if (err) throw err
     let notes = JSON.parse(db)
     console.log(notes)
 
-    let found = notes.findIndex((element) => { 
-        return chosenNote == element.id 
+    let found = notes.findIndex((element) => {
+      return chosenNote == element.id
     })
     console.log(found)
     notes.splice(found, 1)
@@ -77,7 +80,7 @@ app.delete('/api/notes/:id', (req, res) => {
       console.log('Saved!');
       res.json(JSON.stringify(notes))
 
-      app.use(connectLivereload());
+      // app.use(connectLivereload());
 
       // console.log(notes)
     });

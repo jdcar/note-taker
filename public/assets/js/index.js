@@ -75,10 +75,16 @@ const handleNoteDelete = function (event) {
     activeNote = {};
   }
 
-  deleteNote(note.id).then(() => {
+  deleteNote(note.id).then((x) => {
+    console.log("console log" + x)
+
     getAndRenderNotes();
     renderActiveNote();
+    // location.reload();
+    // return false;
   });
+  location.reload();
+  return false;
 };
 
 // Sets the activeNote and displays it
@@ -140,7 +146,7 @@ const renderNoteList = (notes) => {
 
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => {
-  
+
   return getNotes().then(renderNoteList);
 };
 
